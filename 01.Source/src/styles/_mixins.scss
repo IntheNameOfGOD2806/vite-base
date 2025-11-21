@@ -1,0 +1,28 @@
+// src/styles/_mixins.scss
+@use './variables' as *; // Import biến vào để dùng
+
+// Cách 1: Mixin cho từng thiết bị cụ thể (Dễ đọc)
+@mixin mobile {
+  @media screen and (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+// Cách 2: Mixin linh hoạt (Truyền tham số tùy ý)
+@mixin respond-to($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
