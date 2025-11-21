@@ -1,0 +1,2 @@
+# vite-base
+vite-base
