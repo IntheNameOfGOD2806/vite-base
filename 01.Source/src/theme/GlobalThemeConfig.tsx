@@ -1,13 +1,11 @@
 
 import { ConfigProvider } from 'antd';
 import ThemeConfigAntd from './ThemeConfigAntd';
-
+import { useTheme } from '#/context/theme';
 function GlobalThemeConfig({ ...rest }) {
-  // const { theme } = useTheme();
-
-  // const { antdThemeConfig } = useModule() || {};
+  const { theme } = useTheme();
   return (
-    <ConfigProvider theme={ThemeConfigAntd('light', {})}>
+    <ConfigProvider theme={ThemeConfigAntd(theme, {})}>
       {rest.children}
     </ConfigProvider>
   );

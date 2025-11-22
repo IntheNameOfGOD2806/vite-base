@@ -3,7 +3,7 @@
 import type { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 
-import { STORAGE, storage } from '../utils/storage';
+import { STORAGE, deleteLocalStorage, getLocalStorage } from '../utils/storage';
 import axios from 'axios';
 export const setupInterceptors = (instance: AxiosInstance) => {
   // Request Interceptor
@@ -12,9 +12,8 @@ export const setupInterceptors = (instance: AxiosInstance) => {
       if (config.data instanceof FormData) {
         delete config.headers['Content-Type'];
       }
-
       // ✅ Lấy token thật đã được lưu sau login
-      const token = storage.getLocalStorage(STORAGE.TOKEN);
+      const token = getLocalStorage<string>(STORAGE.TOKEN);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -37,14 +36,10 @@ export const setupInterceptors = (instance: AxiosInstance) => {
         // ✅ Nếu lỗi 401 → xử lý logout
         if (StatusCode === 401) {
           toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
-          storage.deleteLocalStorage(STORAGE?.TOKEN);
+          deleteLocalStorage(STORAGE.TOKEN);
           window.location.href = '/'; // Không dùng navigate ở đây
         } else {
-          if (
-            object !== 'Reprentative Existed' &&
-            object !== 'Representative already added to meeting'
-          )
-            toast.error(`Lỗi ${object}`);
+          toast.error(`Lỗi ${object}`);
           return;
         }
 

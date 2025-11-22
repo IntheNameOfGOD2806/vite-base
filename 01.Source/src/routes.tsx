@@ -8,13 +8,7 @@ import { UserDashboard } from './pages/users'
 
 // Ideally this would be an API call to server to get logged in user data
 const getUserData = () => {
-  return new Promise((resolve, _reject) =>
-    setTimeout(() => {
-      const user = window.localStorage.getItem('user')
-      resolve(user)
-      // reject('Error')
-    }, 3000)
-  )
+
 }
 
 export const router = createBrowserRouter(
